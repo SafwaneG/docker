@@ -1,0 +1,36 @@
+version: "3"
+services:
+  mysql-container:
+    image: localhost:5000/mysql:latest
+    container_name: mysql-container
+    ports:
+      - "3306:3306"
+    volumes:
+      - mysql-data:/var/lib/mysql
+    environment:
+      MYSQL_ROOT_PASSWORD: root
+      MYSQL_DATABASE: testdb
+    networks:
+      - myNet
+
+  angular-app:
+    image: localhost:5000/angular-app:latest
+    container_name: angular-app
+    ports:
+      - "8081:80"
+    networks:
+      - myNet
+
+  spring-container:
+    image: localhost:5000/spring-app:latest
+    container_name: spring-container
+    ports:
+      - "8080:8080"
+    networks:
+      - myNet
+
+networks:
+  myNet:
+
+volumes:
+  mysql-data:
